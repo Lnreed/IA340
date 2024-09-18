@@ -64,7 +64,7 @@ SELECT
 FROM population_changes
 WHERE previous_population IS NOT NULL
 ORDER BY year;
-*/ no I did not modify it, but yes it does work. 
+*/ no I did not modify it, and it does not work there are errors, and you must rewrite parts to get specifics on what you want.
 4.8
 */ no Chat GBT does not always give you the accurate answer, you must be specific on what you want from it
 
