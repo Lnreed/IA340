@@ -17,3 +17,54 @@ CREATE TABLE state_population (
     FOREIGN KEY (fips) REFERENCES states(fips)  -- Enforces referential integrity
 );
 both are fine, but the apprach in class was better, then the one given in chat GBT. Nothing is considered perfect in this case it is not but it's funtional. 
+4.4
+/* chat gbt understands that the file is a structure,but does not have a full understanding 
+4.5
+/*
+when i ask chat gbt it gave me this code 
+# Initialize Census API (use your API key)
+c = Census("YOUR_CENSUS_API_KEY")
+
+# Get income data for all states (ACS5 survey for median household income)
+income_data = c.acs5.state(('NAME', 'B19013_001E'), Census.ALL)
+
+# Convert to a DataFrame for easy processing
+df = pd.DataFrame(income_data)
+
+# Rename columns for clarity
+df.columns = ['State', 'Median_Income', 'State_FIPS']
+
+# Find the state with the highest income
+highest_income_state = df.loc[df['Median_Income'].idxmax()]
+
+# Display the result
+print(f"The state with the highest median income is {highest_income_state['State']} with an income of ${highest_income_state['Median_Income']}.")
+state with the highest income is washington DC
+yes the sql data works
+4.7 Prompt:
+-- Write an SQL query to calculate the annual population growth rate for Virginia (VA) over the past five years.
+-- Assume you have a table named 'population_data' with columns 'state', 'year', and 'population'.
+-- The growth rate should be calculated as the percentage change in population from year to year.
+
+-- SQL Code:
+WITH population_changes AS (
+    SELECT 
+        year,
+        population,
+        LAG(population) OVER (ORDER BY year) AS previous_population
+    FROM population_data
+    WHERE state = 'VA'
+    AND year BETWEEN EXTRACT(YEAR FROM CURRENT_DATE) - 5 AND EXTRACT(YEAR FROM CURRENT_DATE) - 1
+)
+SELECT 
+    year,
+    population,
+    previous_population,
+    ((population - previous_population) / previous_population) * 100 AS growth_rate_percentage
+FROM population_changes
+WHERE previous_population IS NOT NULL
+ORDER BY year;
+*/ no I did not modify it, but yes it does work. 
+4.8
+*/ no Chat GBT does not always give you the accurate answer, you must be specific on what you want from it
+
