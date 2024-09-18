@@ -1,2 +1,19 @@
-No because deleting the 'VA' from the data would delete 
-no the code gives an error, because there is no record for 2025
+4.1 
+/*No because deleting the 'VA' from the data would delete 
+4.2 
+/* no the code gives an error, it is not value of fips 
+
+4.3 
+/*
+CREATE TABLE states (
+    fips CHAR(2) PRIMARY KEY,    -- FIPS codes are typically 2 characters long
+    state_name VARCHAR(50) NOT NULL -- State name with a max length of 50 characters
+);
+CREATE TABLE state_population (
+    fips CHAR(2),                        -- Foreign key referring to states table
+    year INT,                            -- Year for the population data
+    population BIGINT,                   -- Population count (large number)
+    PRIMARY KEY (fips, year),            -- Composite primary key (ensures no duplicate entries for a state and year)
+    FOREIGN KEY (fips) REFERENCES states(fips)  -- Enforces referential integrity
+);
+both are fine, but the apprach in class was better, then the one given in chat GBT. Nothing is considered perfect in this case it is not but it's funtional. 
